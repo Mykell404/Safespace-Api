@@ -66,10 +66,19 @@ def get_post_by_id(post_id):
 @app.put('/post/<int:post_id>')
 @app.input(PostUpdateSchema)
 @app.output(PostOutputSchema)
-def update_post(post_id, data): # Make sure the post_id comes before the data else it would throw an error
+def update_post(post_id, data):  # Make sure the post_id comes before the data else it would throw an error
     post = data.get('post')
     post_to_update = session.query(Post).filter_by(id=post_id).first()
     post_to_update.post = post
 
     session.commit()
     return post_to_update
+
+
+@app.delete('/post/<int:post_id>')
+def delete_post(post_id):
+    post_to_delete = session.query(Post).filter_by(id=post_id).first()
+
+    session.delete(post_to_delete)
+    session.commit()
+    return {"message":"Deleted"},204
