@@ -12,4 +12,12 @@ from apiflask import fields
 class PostOutputSchema(Schema):
     id = fields.Integer()
     post = fields.String()
-    date_added = fields.DateTime()
+    datetime = fields.DateTime()
+
+
+class PostCreateSchema(Schema):
+    post = fields.String(required=True)
+
+
+class PostUpdateSchema(Schema):
+    post = fields.String()
